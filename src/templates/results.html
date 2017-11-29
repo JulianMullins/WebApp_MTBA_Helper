@@ -11,15 +11,20 @@
 </head>
 <body>
     <div class="container">
-        <h1>Locate your nearest MBTA Station</h1>
-        
-        <form method="POST">
-            <div class="form-group">
-                <input type="text" class="form-control" id="address" name="address" placeholder="Enter an address or place name">
-            </div>
-    
-            <button type="submit" class="btn btn-primary btn-lg">Submit</button>
-        </form>
+        <h1>Your Nearest MBTA Station:</h1>
+
+        {% if stop_name %}
+        <div class="results-container">
+            <h4>{{stop_name}} MBTA is {{dist}} miles from {{start}}</h4>
+            <h5>The address of this station is:</h5>
+            <p>{{stop_address}}</p>
+        </div>
+        {% else %}
+        <div class="results-container">
+            <h4>No stops nearby</h4>            
+        </div>
+        {% endif %}
+        <a href="/" class="btn btn-primary">← Back</a>
     </div>
 </body>
 </html>
