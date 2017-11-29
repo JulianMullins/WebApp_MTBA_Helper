@@ -44,4 +44,47 @@ def get_lat_long(place_name):
 
     return (latitude, longitude)
 
+def get_address(lat, lng):
+    """
+    Given a latitude and longitude, return a human readable address.
+    See https://developers.google.com/maps/documentation/geocoding/
+    for Google Maps Geocode API URL formatting requirements.
+    """
+
+    #create url
+    params = "?latlng="+lat+","+lng+"&key="+GMAPS_API_KEY
+    url = GMAPS_BASE_URL + params
+
+    json_res = get_json(url)
+
+    address = json_res['results'][0]['formatted_address']
+
+    return address
+
+
+def get_nearest_station(latitude, longitude):
+    """
+    Given latitude and longitude strings, return a (station_name, distance)
+    tuple for the nearest MBTA station to the given coordinates.
+    See http://realtime.mbta.com/Portal/Home/Documents for URL
+    formatting requirements for the 'stopsbylocation' API in 'MBTA-realtime API v2 Documentation'.
+    """
+
+    #create url
+    params = "?api_key="+MBTA_API_KEY+"&format=json"
+    url = MBTA_BASE_URL + params
+
+    json_res = get_json(url)
+
+    return json_res
+
+
+def find_stop_near(place_name):
+    """
+    Given a place name or address, return the nearest MBTA stop and the 
+    distance from the given place to that stop.
+    """
+    pass
+
+
 # print(get_lat_long("Babson Park, Wellesley"))
